@@ -123,3 +123,22 @@ def outcomes(entities, as_of, return_days=30, collection_days=60):
         row["outstanding_minor"] = row["returned_minor"] - row["recovered_minor"]
         result.append(row)
     return result
+
+
+def exposures(entities, as_of):
+    """Latest known ledger balance; unlike labels, no 30/60-day window truncation."""
+    cutoff = instant(as_of)
+    returned, recovered = defaultdict(int), defaultdict(int)
+    for row in entities["returns"]:
+        if instant(row["received_at"]) <= cutoff:
+            returned[row["payment_id"]] += row["returned_amount_minor"]
+    for row in entities["collections"]:
+        if instant(row["received_at"]) <= cutoff:
+            recovered[row["payment_id"]] += row["recovered_amount_minor"]
+    result = []
+    for payment in sorted(entities["payments"], key=lambda r: r["source_id"]):
+        if instant(payment["received_at"]) > cutoff:
+            continue
+        pid = payment["source_id"]
+        result.append(dict(snapshot_id=digest([pid, as_of]), payment_id=pid, application_id=payment["application_id"], consumer_id=payment["consumer_id"], as_of=as_of, currency=payment["currency"], attempted_minor=payment["amount_minor"], settled_minor=payment["amount_minor"] if payment["settlement_status"] == "settled" else 0, returned_minor=returned[pid], recovered_minor=recovered[pid], outstanding_minor=returned[pid]-recovered[pid], age_days=(cutoff-instant(payment["attempted_at"])).days))
+    return result

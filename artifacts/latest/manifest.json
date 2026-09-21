@@ -2,7 +2,7 @@
   "configuration": {
     "applications": 3600,
     "as_of": "2025-02-01T00:00:00Z",
-    "implementation_hash": "b70945a0a68ee2fee2c37118fd4784e1595bd3981c3606f9fcb28746049f61de",
+    "implementation_hash": "cae2a707cbf47541ee6da24a6b70e0be299767bc637b3afc90a0d70181120c40",
     "seed": 42,
     "version": "0.1.0"
   },
@@ -11,14 +11,15 @@
     "index.html": "8e2aef1435bfe663399d2605fccc5b4a71940d314a1ad75a0ab01c5780cb76fd",
     "models/baseline.joblib": "1c3200988d997ba257868f3fd2ba5b63dab9bc1b8b3d222d72ecf8d4bcd0121e",
     "models/challenger.joblib": "cd0bbff3b3158e5893407ffc7bc3e7ecfdd74cc538f785f75a1ce0828b0466f0",
-    "raw/accepted.jsonl": "86e6f4d908a1291f0f40166a2a7c08761985cd5afae60efdb83f298a810a933d",
-    "raw/deliveries.jsonl": "3ae5e3e78b41fa7b94b26cc8b25b26bc18bd7c16acb0c68464e07b7538e1d0f7",
-    "report.json": "05e4ef4d02805feb4487a626e53b2ecb68709cb3a975fe0192a705233244a932",
+    "raw/accepted.jsonl": "e53e00e0ff41dbe407afc153703914bba2a0f91345eff5d1a6027ff30bdc0f2c",
+    "raw/deliveries.jsonl": "f495e20dc330204e8a88f74f77141dbd9391d558f8306bfcd09f4558239353fa",
+    "report.json": "28addd9d1c37f6545822cd9fe87e2c3cf2480458c13eddd53d77e9233e9802bf",
     "simulation/latent.jsonl": "1ffe9daac5a6291e8d12097bfeedeb44dec2c843c9ff1ea0a9526077c85df325",
+    "tables/exposures.jsonl": "d063bf1e9ac06955adce2ac08ce00e7e73e40b5494255ef956078c1cab2187c5",
     "tables/features.jsonl": "6729405dce526d482ddcb5b7a904e1919fa228d1485c4fbb8940542820765c0c",
     "tables/outcomes.jsonl": "9bc517323eca139daa426b663c027fa0023435d816075272ce9dfc2d9216277f",
     "tables/quarantine.jsonl": "35413530d72b6e1f3ada174c65536d0b713e4a5c8f6fee21f6c2ee773337034d",
     "tables/scores.jsonl": "f1b41db9ea9f8aac8631c70c52975e00e833a06f41bfcd4032212cc9808d3c97"
   },
-  "input_hash": "9d11b699c903263b1457d4aee031eac0fa7ff6da6f1e6eb619a7f8713b3986ab"
+  "input_hash": "539ae11bfd9db43bb6ce29903f2d1ce7154a6327a127c0820c4a94641eb23411"
 }

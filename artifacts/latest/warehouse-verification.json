@@ -1,5 +1,6 @@
 {
   "source_rows": {
+    "exposures": 4954,
     "features": 3600,
     "outcomes": 3600,
     "scores": 7200,
@@ -8,6 +9,7 @@
   "sql_checks": {
     "cohort_denominators": 0,
     "complete_consistent_outcomes": 0,
+    "exposure_contract": 0,
     "outcome_balances": 0,
     "point_in_time": 0,
     "required_fields": 0,

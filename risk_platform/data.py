@@ -22,14 +22,15 @@ def generate(seed=42, applications=3600):
         months = rng.randint(0, 120)
         missing = rng.random() < .12
         p = 1 / (1 + math.exp(-(-3.2 + 4.0 * debt + 1.1 * (months < 12) + 2.2 * (debt > .65 and months < 30))))
-        approved = rng.random() > (.13 + .45 * debt)
+        historical_score = round(.13 + .45 * debt, 6)
+        approved = rng.random() > historical_score
         report_id = f"report-{i:05d}"
         common = dict(consumer_id=consumer, schema_version=1)
         vendor_a = i % 2 == 0
         payload = {"debt_ratio": debt, "history_months": months} if vendor_a else {"obligation_pct": round(debt * 100, 2), "history_years": months / 12}
         if missing:
             payload = {key: None for key in payload}
-        report = dict(common, kind="report", source_id=report_id, version=1, vendor_id="vendor_a" if vendor_a else "vendor_b", effective_at=timestamp(day-timedelta(days=2)), received_at=timestamp(day-timedelta(days=1)), payload=payload)
+        report = dict(common, kind="report", source_id=report_id, version=1, vendor_id="vendor_a" if vendor_a else "vendor_b", effective_at=timestamp(day-timedelta(days=2)), received_at=timestamp(day-timedelta(days=1)), payload=payload, residence={"address": f"Synthetic Residence {i}", "country": "GB" if currency == "GBP" else "US"}, identity_check_status="synthetic_pass" if i % 19 else "synthetic_review")
         # Some reports arrive too late to be available at enrollment.
         if i % 23 == 0:
             report["received_at"] = timestamp(day+timedelta(days=2))
@@ -38,7 +39,7 @@ def generate(seed=42, applications=3600):
             corrected = dict(payload)
             corrected["debt_ratio" if vendor_a else "obligation_pct"] = .99 if vendor_a else 99.0
             raw.append(dict(report, version=2, received_at=timestamp(day+timedelta(days=20)), payload=corrected))
-        raw.append(dict(common, kind="enrollment", source_id=application, version=1, decided_at=timestamp(day), received_at=timestamp(day), report_id=report_id, currency=currency, original_approved=approved, model_version="historical-v1", policy_version="historical-v1"))
+        raw.append(dict(common, kind="enrollment", source_id=application, version=1, decided_at=timestamp(day), received_at=timestamp(day), report_id=report_id, currency=currency, original_approved=approved, score=historical_score, model_version="historical-v1", policy_version="historical-stochastic-v1"))
         pay_count = rng.randint(1, 3)
         for j in range(pay_count):
             attempted = day + timedelta(days=j+1)

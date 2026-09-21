@@ -14,6 +14,7 @@ import duckdb
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMAS = {
+    'exposures': 'snapshot_id VARCHAR, payment_id VARCHAR, application_id VARCHAR, consumer_id VARCHAR, as_of TIMESTAMPTZ, currency VARCHAR, age_days INTEGER, attempted_minor BIGINT, settled_minor BIGINT, returned_minor BIGINT, recovered_minor BIGINT, outstanding_minor BIGINT',
     'features': 'application_id VARCHAR, consumer_id VARCHAR, decided_at TIMESTAMPTZ, currency VARCHAR, report_id VARCHAR, report_version INTEGER, report_effective_at TIMESTAMPTZ, report_received_at TIMESTAMPTZ, history_missing INTEGER, debt_ratio DOUBLE, history_months INTEGER, prior_returns INTEGER, prior_payments INTEGER, original_approved BOOLEAN, split VARCHAR',
     'outcomes': 'application_id VARCHAR, consumer_id VARCHAR, currency VARCHAR, decided_at TIMESTAMPTZ, mature BOOLEAN, attempted_minor BIGINT, settled_minor BIGINT, returned_minor BIGINT, recovered_minor BIGINT, outstanding_minor BIGINT, return_count INTEGER, payment_count INTEGER, observed BOOLEAN',
     'scores': 'application_id VARCHAR, model_version VARCHAR, feature_version VARCHAR, data_cutoff TIMESTAMPTZ, scored_at TIMESTAMPTZ, score_context VARCHAR, risk_score DOUBLE, split VARCHAR, consumer_seen_in_train BOOLEAN',

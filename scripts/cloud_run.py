@@ -131,7 +131,7 @@ def main():
                        RISK_TABLE_SUFFIX=f"_{run_id}", RISK_MAXIMUM_BYTES_BILLED="100000000",
                        DBT_TARGET_PATH=str(dbt_output / "target"),
                        DBT_LOG_PATH=str(dbt_output / "logs"), DBT_SEND_ANONYMOUS_USAGE_STATS="false")
-        for name in ("features", "outcomes", "scores", "quarantine"):
+        for name in ("features", "outcomes", "exposures", "scores", "quarantine"):
             dbt_env[f"RISK_{name.upper()}_TABLE"] = f"{name}_{run_id}"
         process = subprocess.run([str(Path(sys.executable).parent / "dbt"), "build",
                                   "--project-dir", str(project_path), "--profiles-dir", str(project_path)],

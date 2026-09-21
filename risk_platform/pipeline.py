@@ -8,7 +8,7 @@ import shutil
 import tempfile
 from .data import generate
 from .ingestion import Ledger, canonical, digest
-from .transforms import normalize, features, outcomes
+from .transforms import normalize, features, outcomes, exposures
 from .experiment import run_experiment
 from .registry import Registry
 
@@ -69,6 +69,7 @@ def run(output, seed=42, applications=3600):
         (temporary/"ledger.sqlite").unlink()
         feature_rows = features(entities)
         outcome_rows = outcomes(entities, config["as_of"])
+        exposure_rows = exposures(entities, config["as_of"])
         training_labels = outcomes(entities, "2024-07-01T00:00:00Z")
         validation_labels = outcomes(entities, "2024-10-01T00:00:00Z")
         experiment, scores = run_experiment(feature_rows, outcome_rows, latent, seed, training_labels, validation_labels, temporary/"models")
@@ -91,13 +92,14 @@ def run(output, seed=42, applications=3600):
         restored_entities, _ = normalize(restored.rows())
         assert features(restored_entities) == feature_rows
         assert outcomes(restored_entities, config["as_of"]) == outcome_rows
+        assert exposures(restored_entities, config["as_of"]) == exposure_rows
         restored.close()
         (temporary/"restore.sqlite").unlink()
         report = dict(configuration=config, counts=dict(enrollments=len(feature_rows), valid_raw=len(raw), deliveries=len(deliveries), quarantined=len(quarantined), payments=len(entities["payments"])), ingestion=ingestion, replay=replay, checks=dict(duplicate_safe_replay=True, late_corrections_preserve_enrollment=True, portable_source_restore=True, model_artifact_restore=True, registry_rollback_fixture=True), experiment=experiment, registry_fixture=events, deployment=dict(local_batch="verified", gcp="not_deployed", hosted_ci="not_run", container="not_run"))
         write_rows(temporary/"raw"/"deliveries.jsonl", deliveries)
         write_rows(temporary/"raw"/"accepted.jsonl", raw)
         write_rows(temporary/"simulation"/"latent.jsonl", latent)
-        for name, rows in dict(features=feature_rows, outcomes=outcome_rows, scores=scores, quarantine=quarantined).items():
+        for name, rows in dict(features=feature_rows, outcomes=outcome_rows, exposures=exposure_rows, scores=scores, quarantine=quarantined).items():
             write_rows(temporary/"tables"/f"{name}.jsonl", rows)
         write_json(temporary/"report.json", report)
         (temporary/"index.html").write_text(dashboard(report))

@@ -9,7 +9,7 @@
   "configuration": {
     "applications": 3600,
     "as_of": "2025-02-01T00:00:00Z",
-    "implementation_hash": "b70945a0a68ee2fee2c37118fd4784e1595bd3981c3606f9fcb28746049f61de",
+    "implementation_hash": "cae2a707cbf47541ee6da24a6b70e0be299767bc637b3afc90a0d70181120c40",
     "seed": 42,
     "version": "0.1.0"
   },

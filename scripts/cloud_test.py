@@ -56,7 +56,7 @@ class SchemaTests(unittest.TestCase):
                 (output / "manifest.json").write_text('{}')
                 (output / "report.json").write_text('{}')
                 (output / "raw" / "records.jsonl").write_text('{"id": 1}\n')
-                for name in ("features", "outcomes", "scores", "quarantine"):
+                for name in ("features", "outcomes", "exposures", "scores", "quarantine"):
                     (output / "tables" / f"{name}.jsonl").write_text('{"id": 1}\n')
             else:
                 env = kwargs["env"]
@@ -79,7 +79,7 @@ class SchemaTests(unittest.TestCase):
         self.assertEqual(evidence["status"], "verified")
         self.assertEqual(evidence["dbt"]["status"], "passed")
         self.assertEqual(len(commands), 2)
-        self.assertEqual(len(evidence["tables"]), 4)
+        self.assertEqual(len(evidence["tables"]), 5)
         blob = storage.bucket.return_value.blob.return_value
         for call in blob.upload_from_filename.call_args_list + blob.upload_from_string.call_args_list:
             self.assertEqual(call.kwargs["if_generation_match"], 0)

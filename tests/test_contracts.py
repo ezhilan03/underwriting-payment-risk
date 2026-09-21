@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from risk_platform.data import generate
 from risk_platform.ingestion import Ledger, validate
-from risk_platform.transforms import features, normalize, outcomes
+from risk_platform.transforms import features, normalize, outcomes, exposures
 from risk_platform.registry import Registry
 from risk_platform.experiment import economics
 from risk_platform.pipeline import verify
@@ -117,6 +117,23 @@ class Contracts(unittest.TestCase):
     def test_recovery_balance(self):
         row = outcomes(normalize(fixture())[0], "2024-04-01T00:00:00Z")[0]
         self.assertEqual((row["attempted_minor"], row["returned_minor"], row["recovered_minor"], row["outstanding_minor"]), (10000, 6000, 2000, 4000))
+
+    def test_exposure_snapshot_tracks_balance_and_age(self):
+        entities, _ = normalize(fixture())
+        self.assertEqual(exposures(entities, "2024-01-03T00:00:00Z"), [])
+        early = exposures(entities, "2024-01-12T00:00:00Z")[0]
+        self.assertEqual(early["outstanding_minor"], 6000)
+        self.assertEqual(early["age_days"], 8)
+        later = exposures(entities, "2024-02-02T00:00:00Z")[0]
+        self.assertEqual(later["outstanding_minor"], 4000)
+        self.assertNotEqual(early["snapshot_id"], later["snapshot_id"])
+
+    def test_exposure_keeps_returns_outside_model_window(self):
+        raw = fixture()[:4]
+        raw[3].update(occurred_at="2024-02-20T00:00:00Z", received_at="2024-02-21T00:00:00Z")
+        entities, _ = normalize(raw)
+        self.assertEqual(exposures(entities, "2024-03-01T00:00:00Z")[0]["outstanding_minor"], 6000)
+        self.assertEqual(outcomes(entities, "2024-03-01T00:00:00Z")[0]["outstanding_minor"], 0)
 
     def test_over_recovery_quarantined(self):
         raw = fixture()

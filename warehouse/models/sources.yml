@@ -3,6 +3,8 @@ sources:
   - name: risk_raw
     schema: "{{ env_var('RISK_RAW_DATASET', 'risk_raw') }}"
     tables:
+      - name: exposures
+        identifier: "{{ env_var('RISK_EXPOSURES_TABLE', 'exposures') }}"
       - name: features
         identifier: "{{ env_var('RISK_FEATURES_TABLE', 'features') }}"
       - name: outcomes
