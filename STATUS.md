@@ -24,6 +24,8 @@ The challenger wins validation Brier (0.1968 vs baseline 0.2033), but loses on t
 - Local run: `artifacts/latest/manifest.json`, `report.json`, `warehouse-verification.json`.
 - Local container evidence: `artifacts/verification/container.json`.
 
+- Sandbox delivery CI passed: https://github.com/ezhilan03/underwriting-payment-risk/actions/runs/35662421128 (implementation `70a118036836e1cf32dc3f282b46d9882552196d`). Includes the default-deny Terraform test.
+
 ## Verified $0 GCP delivery
 
 Dedicated project: `underwriting-risk-ez-2026`. Created September 21 with no linked billing account. Billing remained disabled before and after the complete verification run. The $0 deployment replaces the planned billing-enabled Cloud Run/GCS deployment; those components stay deferred and Terraform requires an explicit opt-in.
@@ -33,9 +35,9 @@ Real BigQuery Sandbox evidence (`artifacts/verification/sandbox.json`):
 - Six source tables loaded, including 13,806 accepted raw events. Every field of every loaded row was read back and matched by canonical hash, not just row count.
 - Five dbt models and seventeen data tests passed on BigQuery.
 - BigQuery cohort marts exactly match the local DuckDB result.
+- A complete rerun reused all six source tables with zero new load jobs; cloud dbt tests and billing checks passed again (`sandbox-replay.json`).
 - Raw events restored from BigQuery into a new local ledger reproduce features, outcomes and exposure snapshots.
 - About 8.2 MB of source logical storage. Tables expire after 60 days; repository artifacts remain the durable reproduction source.
 - No Cloud Run compute, GCS buckets, Artifact Registry images or scheduler deployed. Model training/orchestration runs locally; BigQuery executes warehouse transformations.
 
 This completes the requested zero-dollar demo scope. A continuously running cloud application and durable GCS backup are deferred upgrades, not delivered claims. See `docs/SANDBOX.md` for rerun/expiry instructions.
-
