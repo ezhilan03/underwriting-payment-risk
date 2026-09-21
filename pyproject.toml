@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "underwriting-payment-risk"
+version = "0.1.0"
+description = "Synthetic point-in-time underwriting and payment-performance experiments"
+requires-python = ">=3.11"
+dependencies = ["numpy==2.4.6", "scikit-learn==1.9.0"]
+
+[project.optional-dependencies]
+cloud = ["google-cloud-storage>=3,<4", "google-cloud-bigquery>=3,<4"]
+warehouse = ["dbt-duckdb>=1.9,<2", "dbt-bigquery>=1.9,<2"]
+
+[tool.setuptools.packages.find]
+include = ["risk_platform*"]

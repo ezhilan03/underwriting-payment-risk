@@ -1,0 +1,17 @@
+underwriting_payment_risk:
+  target: "{{ env_var('DBT_TARGET', 'local') }}"
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('RISK_DUCKDB_PATH', '../artifacts/risk.duckdb') }}"
+      threads: 1
+    bigquery:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT_ID', 'configure-project-before-use') }}"
+      dataset: "{{ env_var('RISK_DBT_DATASET', 'risk_analytics') }}"
+      location: "{{ env_var('GCP_REGION', 'us-central1') }}"
+      threads: 1
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      maximum_bytes_billed: "{{ env_var('RISK_MAXIMUM_BYTES_BILLED', '100000000') | int }}"

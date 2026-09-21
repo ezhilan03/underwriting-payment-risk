@@ -1,0 +1,14 @@
+.git
+.venv
+__pycache__
+*.pyc
+artifacts
+output
+infra
+tests
+.env*
+*.tfstate*
+warehouse/target
+warehouse/logs
+warehouse/.user.yml
+*.duckdb*

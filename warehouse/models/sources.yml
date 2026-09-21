@@ -1,0 +1,49 @@
+version: 2
+sources:
+  - name: risk_raw
+    schema: "{{ env_var('RISK_RAW_DATASET', 'risk_raw') }}"
+    tables:
+      - name: features
+        identifier: "{{ env_var('RISK_FEATURES_TABLE', 'features') }}"
+      - name: outcomes
+        identifier: "{{ env_var('RISK_OUTCOMES_TABLE', 'outcomes') }}"
+      - name: scores
+        identifier: "{{ env_var('RISK_SCORES_TABLE', 'scores') }}"
+      - name: quarantine
+        identifier: "{{ env_var('RISK_QUARANTINE_TABLE', 'quarantine') }}"
+models:
+  - name: stg_features
+    columns:
+      - name: application_id
+        data_tests: [unique, not_null]
+      - name: currency
+        data_tests: [not_null]
+      - name: split
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['train', 'validation', 'test', 'censored']
+  - name: stg_outcomes
+    columns:
+      - name: application_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_features')
+                field: application_id
+  - name: stg_scores
+    columns:
+      - name: application_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_features')
+                field: application_id
+      - name: model_version
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['baseline', 'challenger']

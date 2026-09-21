@@ -1,0 +1,49 @@
+name: Validate risk platform
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  local:
+    runs-on: ubuntu-latest
+    env:
+      OMP_NUM_THREADS: 1
+      OPENBLAS_NUM_THREADS: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.11.31
+      - run: uv sync --frozen --all-extras --python 3.12
+      - run: echo "$GITHUB_WORKSPACE/.venv/bin" >> "$GITHUB_PATH"
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/cloud_test.py
+      - run: python -m risk_platform run --output /tmp/risk-output
+      - run: python scripts/verify_warehouse.py --tables /tmp/risk-output/tables --database /tmp/risk-warehouse.duckdb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-risk-evidence
+          path: /tmp/risk-output
+          retention-days: 7
+  container:
+    runs-on: ubuntu-latest
+    env:
+      OMP_NUM_THREADS: 1
+      OPENBLAS_NUM_THREADS: 1
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t risk-platform:ci .
+      - run: docker run --rm --read-only --tmpfs /tmp:rw,nosuid,size=512m --network none risk-platform:ci python -m risk_platform run --output /tmp/risk-output
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.9.8'
+      - run: terraform fmt -check
+      - run: terraform init -backend=false
+      - run: terraform validate

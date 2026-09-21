@@ -1,0 +1,24 @@
+{
+  "configuration": {
+    "applications": 3600,
+    "as_of": "2025-02-01T00:00:00Z",
+    "implementation_hash": "b70945a0a68ee2fee2c37118fd4784e1595bd3981c3606f9fcb28746049f61de",
+    "seed": 42,
+    "version": "0.1.0"
+  },
+  "feature_hash": "4ee8d87ed3ca25d90af427e272a37eb4df1a247a4c2f840914879ea4721c8774",
+  "files": {
+    "index.html": "8e2aef1435bfe663399d2605fccc5b4a71940d314a1ad75a0ab01c5780cb76fd",
+    "models/baseline.joblib": "1c3200988d997ba257868f3fd2ba5b63dab9bc1b8b3d222d72ecf8d4bcd0121e",
+    "models/challenger.joblib": "cd0bbff3b3158e5893407ffc7bc3e7ecfdd74cc538f785f75a1ce0828b0466f0",
+    "raw/accepted.jsonl": "86e6f4d908a1291f0f40166a2a7c08761985cd5afae60efdb83f298a810a933d",
+    "raw/deliveries.jsonl": "3ae5e3e78b41fa7b94b26cc8b25b26bc18bd7c16acb0c68464e07b7538e1d0f7",
+    "report.json": "05e4ef4d02805feb4487a626e53b2ecb68709cb3a975fe0192a705233244a932",
+    "simulation/latent.jsonl": "1ffe9daac5a6291e8d12097bfeedeb44dec2c843c9ff1ea0a9526077c85df325",
+    "tables/features.jsonl": "6729405dce526d482ddcb5b7a904e1919fa228d1485c4fbb8940542820765c0c",
+    "tables/outcomes.jsonl": "9bc517323eca139daa426b663c027fa0023435d816075272ce9dfc2d9216277f",
+    "tables/quarantine.jsonl": "35413530d72b6e1f3ada174c65536d0b713e4a5c8f6fee21f6c2ee773337034d",
+    "tables/scores.jsonl": "f1b41db9ea9f8aac8631c70c52975e00e833a06f41bfcd4032212cc9808d3c97"
+  },
+  "input_hash": "9d11b699c903263b1457d4aee031eac0fa7ff6da6f1e6eb619a7f8713b3986ab"
+}
