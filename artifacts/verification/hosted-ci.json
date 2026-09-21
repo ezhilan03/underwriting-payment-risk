@@ -1,0 +1,16 @@
+{
+  "workflow_url": "https://github.com/ezhilan03/underwriting-payment-risk/actions/runs/35661253934",
+  "implementation_commit": "3fd1a95a0182e15eb09a59b8d8c7fd38ae04959f",
+  "status": "success",
+  "downloaded_manifest_verified": true,
+  "native_and_ci_features_identical": true,
+  "files_verified": 12,
+  "warehouse_rows": {
+    "exposures": 4954,
+    "features": 3600,
+    "outcomes": 3600,
+    "scores": 7200,
+    "quarantine": 1
+  },
+  "dbt_status": "passed"
+}

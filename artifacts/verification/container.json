@@ -1,0 +1,23 @@
+{
+  "image_id": "sha256:3649a93267aadc4d75daa2948a5045e32300664443276da66a92fae5ba17b6b7",
+  "architecture": "amd64",
+  "user": "10001",
+  "read_only": true,
+  "network": "none",
+  "memory_limit": "1g",
+  "returncode": 0,
+  "stderr": "",
+  "result": {
+    "counts": {
+      "enrollments": 3600,
+      "valid_raw": 13806,
+      "deliveries": 14284,
+      "quarantined": 1,
+      "payments": 4954
+    },
+    "exposures": 4954,
+    "feature_hash": "4ee8d87ed3ca25d90af427e272a37eb4df1a247a4c2f840914879ea4721c8774",
+    "manifest_files": 12
+  },
+  "native_and_container_features_identical": true
+}

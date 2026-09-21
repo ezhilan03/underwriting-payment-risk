@@ -2,7 +2,7 @@
 
 A synthetic portfolio platform linking two vendor underwriting schemas to enrollment decisions, payment attempts, returns and collections. It demonstrates what was known at a decision, how outcomes mature, and why a model improvement is different from an approval-policy change.
 
-**Status:** implementation undergoing release verification. GCP deployment project is not yet selected. This repository makes no claim of live credit decisioning or production adoption.
+**Status:** implementation and local acceptance checks pass; hosted release checks are linked in [STATUS.md](STATUS.md). GCP deployment project and spending target are not yet selected. This repository makes no claim of live credit decisioning or production adoption.
 
 ## Run
 
