@@ -2,7 +2,7 @@
 
 A synthetic portfolio platform linking two vendor underwriting schemas to enrollment decisions, payment attempts, returns and collections. It demonstrates what was known at a decision, how outcomes mature, and why a model improvement is different from an approval-policy change.
 
-**Status:** implementation and local acceptance checks pass; hosted release checks are linked in [STATUS.md](STATUS.md). GCP deployment project and spending target are not yet selected. This repository makes no claim of live credit decisioning or production adoption.
+**Status:** the $0 GCP sandbox deployment is verified in dedicated project `underwriting-risk-ez-2026`, with no linked billing account. Five dbt models and seventeen tests pass on real BigQuery; cloud readback/restoration matches the local results. See [STATUS.md](STATUS.md) and [sandbox operations](docs/SANDBOX.md).
 
 ## Run
 
@@ -26,7 +26,7 @@ The batch generates 3,600 seeded applications across GBP and USD. Open `artifact
 
 Vendor A/B + enrollment/payment deliveries → append-only SQLite ledger and quarantine → normalized entities → knowledge-time features and matured outcomes → temporal baseline/challenger evaluation → currency-specific policy comparison → dbt cohort marts.
 
-Cloud delivery uses private versioned GCS, isolated BigQuery tables per run, dbt on BigQuery and an on-demand Cloud Run job. Terraform requires an explicit GCP project ID; it creates no scheduler or public endpoint. See [GCP delivery](docs/GCP.md) and [warehouse contract](docs/WAREHOUSE.md).
+The active $0 deployment runs orchestration/model compute locally and uses BigQuery Sandbox for source snapshots, SQL/dbt transformations and marts. Tables expire after 60 days. The optional GCS/Cloud Run architecture is implemented but deferred and disabled by default in Terraform. See [GCP delivery](docs/GCP.md) and [warehouse contract](docs/WAREHOUSE.md).
 
 ## Guarantees and deliberate boundaries
 

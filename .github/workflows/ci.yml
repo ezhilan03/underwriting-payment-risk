@@ -47,3 +47,4 @@ jobs:
       - run: terraform fmt -check
       - run: terraform init -backend=false
       - run: terraform validate
+      - run: terraform test

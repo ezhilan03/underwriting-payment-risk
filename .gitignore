@@ -18,3 +18,4 @@ credentials*.json
 artifacts/history/
 warehouse/.user.yml
 artifacts/latest/dbt-build.log
+artifacts/verification/sandbox-dbt.log

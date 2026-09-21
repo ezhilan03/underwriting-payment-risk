@@ -1,10 +1,8 @@
-# GCP batch delivery
+# Optional billing-enabled GCP batch delivery
 
-This repository includes deployable Terraform and a cloud delivery runner. No GCP
-resources have been created or tested by this implementation. Local evidence is
-not proof of a deployed Cloud Run execution. An existing billing-enabled project
-must be explicitly selected before deployment; no project is inferred from local
-credentials.
+**Active deployment:** the dedicated project `underwriting-risk-ez-2026` uses BigQuery Sandbox with no linked billing account. See [SANDBOX.md](SANDBOX.md) for the verified $0 path.
+
+The Cloud Run/GCS architecture below is an optional future upgrade. It has not been deployed. Terraform refuses to apply its resources unless `allow_billed_architecture=true` is explicitly provided. Keep the default false for the current zero-dollar constraint. Creating or linking billing is outside that constraint.
 
 ## Resources and identity
 
@@ -30,6 +28,8 @@ Run from the repository root with authenticated deployment credentials. The
 commands below are operator steps, not a record of completed deployment.
 
 ```sh
+# Only after explicitly choosing a billing-enabled upgrade:
+export TF_VAR_allow_billed_architecture=true
 export TF_VAR_project_id='YOUR_EXISTING_PROJECT_ID'
 terraform -chdir=infra init
 terraform -chdir=infra plan -out=bootstrap.tfplan
@@ -84,8 +84,7 @@ support a remote delivery claim.
 Local checks: `python scripts/cloud_test.py` and `terraform -chdir=infra fmt -check`.
 Provider-aware validation requires successful `terraform init -backend=false`,
 then `terraform validate`. The original restricted-network initialization failure
-was resolved on September 21. Cloud IAM, actual loads and remote recovery remain
-unverified until the target project is selected and deployed. CI includes
+was resolved on September 21. Cloud Run runtime IAM and GCS delivery remain unverified. BigQuery Sandbox loads, dbt execution and source recovery are separately verified in SANDBOX.md. CI includes
 offline conversion checks, application tests, a synthetic run and Terraform
 validation, but its remote execution has not been observed.
 

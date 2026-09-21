@@ -1,0 +1,93 @@
+{
+  "project": "underwriting-risk-ez-2026",
+  "mode": "bigquery_sandbox",
+  "billing": {
+    "billingAccountName": "",
+    "billingEnabled": false,
+    "name": "projects/underwriting-risk-ez-2026/billingInfo",
+    "projectId": "underwriting-risk-ez-2026"
+  },
+  "source_manifest_sha256": "fce870d2810966797de202441d9c53c8fe380b8ecbacb28655fc651f38629f38",
+  "run_id": "8b1be34b698905d6",
+  "tables": [
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.exposures_8b1be34b698905d6",
+      "rows": 4954,
+      "content_sha256": "fbd70716e05c54074b6e708ec48ea91d08e56245075ef5e5a601815d78bf0f90",
+      "bytes": 835784,
+      "expires": "2026-11-20T22:19:35.644000+00:00",
+      "load_job_id": "73a21f00-150e-4b29-b354-6435cc0b45a5",
+      "existing_reused": false,
+      "full_readback_verified": true
+    },
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.features_8b1be34b698905d6",
+      "rows": 3600,
+      "content_sha256": "761b262472ce3b9f8e17ad03051b5fbbae976e6f845e70ab1b6b927d5de164a5",
+      "bytes": 555076,
+      "expires": "2026-11-20T22:19:39.656000+00:00",
+      "load_job_id": "30930137-de77-4829-8f28-a69baf2fcf15",
+      "existing_reused": false,
+      "full_readback_verified": true
+    },
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.outcomes_8b1be34b698905d6",
+      "rows": 3600,
+      "content_sha256": "82e5922a609ffe5f2118adcb432b058ccf931804f80f17f409d608854ff801c2",
+      "bytes": 366168,
+      "expires": "2026-11-20T22:19:43.620000+00:00",
+      "load_job_id": "303ef795-5221-466d-8985-d626215d5527",
+      "existing_reused": false,
+      "full_readback_verified": true
+    },
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.quarantine_8b1be34b698905d6",
+      "rows": 1,
+      "content_sha256": "5d3fc87bd225201d7c0b06e5422c883be1e0a6e81b0c52c6c9805495e57cd158",
+      "bytes": 375,
+      "expires": "2026-11-20T22:19:48.665000+00:00",
+      "load_job_id": "6858fecb-dca2-4004-b4e6-7657a5d0b480",
+      "existing_reused": false,
+      "full_readback_verified": true
+    },
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.scores_8b1be34b698905d6",
+      "rows": 7200,
+      "content_sha256": "bd72045dd628a2d2da482562f8bfeb3cb6a23e85bfc35d8f666782a19608a19f",
+      "bytes": 905900,
+      "expires": "2026-11-20T22:19:54.124000+00:00",
+      "load_job_id": "330fd2a8-0df3-42f1-839c-05efe8d714de",
+      "existing_reused": false,
+      "full_readback_verified": true
+    },
+    {
+      "table_id": "underwriting-risk-ez-2026.risk_sandbox.raw_events_8b1be34b698905d6",
+      "rows": 13806,
+      "content_sha256": "0ea27f3b17821994a2ab1be0406cabaf07dc18dcc032ace96359c2c7119bec8e",
+      "bytes": 5508106,
+      "expires": "2026-11-20T22:19:58.879000+00:00",
+      "load_job_id": "a8b67007-5325-4069-a6b3-c775647585d9",
+      "existing_reused": false,
+      "full_readback_verified": true
+    }
+  ],
+  "cloud_compute_deployed": false,
+  "gcs_deployed": false,
+  "cloud_source_restoration": "features_outcomes_exposures_identical",
+  "dbt": {
+    "status": "passed",
+    "results": 22,
+    "models": 5,
+    "tests": 17
+  },
+  "cohort_parity": true,
+  "query_job_id": "41b75718-72bd-4535-ba2b-de475abe559c",
+  "query_bytes_processed": 1900,
+  "status": "verified",
+  "billing_after": {
+    "billingAccountName": "",
+    "billingEnabled": false,
+    "name": "projects/underwriting-risk-ez-2026/billingInfo",
+    "projectId": "underwriting-risk-ez-2026"
+  }
+}
